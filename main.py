@@ -8,6 +8,7 @@ def lcs():
     vals = {}
     for _ in range (K):
         char, val = lines[line_index].split()
+        vals[char] = int(val)
         line_index+=1;
 
     A = lines[line_index]
@@ -22,7 +23,7 @@ def lcs():
 
     for i in range(1, n+ 1):
         for j in range(1, m+ 1):
-            if (A[i-1] == B[i-1]):
+            if (A[i-1] == B[j-1]):
                 take = vals[A[i-1]] + dp_table[i-1][j-1] #if match take
                 skip_A = dp_table[i-1][j] #up
                 skip_B = dp_table[i][j-1] #left
@@ -31,4 +32,29 @@ def lcs():
                 dp_table[i][j] = max(dp_table[i-1][j], dp_table[i][j-1]) #either skip from A, skip from B, up or left
 
 
+    i, j = n, m
+    optimal_answer = []
+    while i> 0 and j > 0:
+        if A[i-1] == B[j-1]:
+            char = A[i-1]
+            if dp_table[i][j] == vals[char] + dp_table[i-1][j-1]:
+                optimal_answer.append(char)
+                i-=1
+                j-=1
+            elif dp_table[i][j] == dp_table[i-1][j]:
+                i-=1;
+            else:
+                j-=1;
+        elif dp_table[i][j] == dp_table[i-1][j]:
+            i-=1;
+        else:
+            j-=1;
+    optimal_answer.reverse()
+    sub_seq = "".join(optimal_answer)
 
+    print(dp_table[n][m])
+    print(sub_seq)
+
+
+if __name__ == "__main__":
+    lcs()
