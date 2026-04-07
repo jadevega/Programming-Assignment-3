@@ -7,12 +7,25 @@ Valentina UFID: 99166716
 Instructions for running program:
 -set your terminal as command prompt
 -run the following:
-_python main.py < <input file>_
+python main.py < <input file>
+
 For example:
 input:
-_python main.py < example.in_
+python main.py < example.in
 output:
 17
 eabce
-or
-_python main.py < input_files/file1_
+
+Another example using the input files:
+input:
+python main.py < data/file1.in
+output:
+84
+cfbedefbfecad
+
+Written Component:
+Question 1
+![Runtime Graph](data/runtime_graph.png)
+
+Question 2
+
