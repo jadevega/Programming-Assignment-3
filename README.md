@@ -43,7 +43,7 @@ If A[i] == B[j]: dp[i][j] = max(v(A[i]) + dp[i-1][j-1], dp[i-1][j], dp[i][j-1])
 and
 If A[i] != B[j]: dp[i][j] = max(dp[i-1][j], dp[i][j-1])
 
-The recurrence is correct because neither character can form a matching pair when A[i] != B[j]. This means that the best solution will exclude A[i] or exclude B[j]. Now when A[i] == B[j], we have another option which will include the matching chatacter. It will also gain v(A[i]) for the remaining prefixes dp[i-1][j-1]. All values here are nonnegative so we are able to take the max over all options and we are able to obtain the globally optimal value proving that the recurrence is correct.
+The recurrence is correct because neither character can form a matching pair when A[i] != B[j]. This means that the best solution will exclude A[i] or exclude B[j]. The best solution would come from one of the two smaller subproblems. Now when A[i] == B[j], we have another option which will include the matching chatacter, so we have two options. It will also gain v(A[i]) for the remaining prefixes dp[i-1][j-1]. All values here are nonnegative so we are able to take the max over all options and we are able to obtain the globally optimal value. If it does not use the matching character then the best solution will come from skipping over one of the two characters. 
 
 Question 3
 
@@ -52,6 +52,7 @@ pseudocode:
 HVLCS(A, B, v):
     n = |A|, m = |B|
     create (n+1) x (m+1) table dp, initialized to 0
+    create (n+1) x (m+1) table length, initialized to 0
 
     for i = 1 to n:
         for j = 1 to m:
@@ -60,6 +61,6 @@ HVLCS(A, B, v):
             else:
                 dp[i][j] = max(dp[i-1][j], dp[i][j-1])
 
-    return dp[n][m]
+    return dp[n][m], length[n][m]
 ```
 The runtime of the algorithm is O(n*m) because the dynamic programming table has (n+1)(m+1) cells. Each cell takes O(1) to compute. And backtrackning traces a path through the table in O(n+m) time, so that is the overall runtime.
